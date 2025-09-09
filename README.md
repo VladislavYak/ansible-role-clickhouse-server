@@ -1,6 +1,3 @@
--- this is just works somehow.
--- a lot of hardcode, mvp, need to improve
-
 [![Build Status](https://travis-ci.com/nl2go/ansible-role-clickhouse.svg?branch=master)](https://travis-ci.com/nl2go/ansible-role-clickhouse)
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/nl2go/ansible-role-clickhouse)](https://galaxy.ansible.com/nl2go/clickhouse)
 [![Ansible Galaxy](https://img.shields.io/badge/role-nl2go.clickhouse-blue.svg)](https://galaxy.ansible.com/nl2go/clickhouse/)
@@ -108,7 +105,7 @@ For the file macros.xml, you need to fill the variables below:
 None.
 
 ## Example Playbook
-
+```yaml
 - hosts: servers
   become: true
   vars:
@@ -133,7 +130,7 @@ None.
       - "{{ ansible_default_ipv4.address }}"
   roles:
     - nl2go.clickhouse
-
+```
 ## Development
 
 Use [docker-molecule](https://github.com/nl2go/docker-molecule) following the instructions to run [Molecule](https://molecule.readthedocs.io/en/stable/)
