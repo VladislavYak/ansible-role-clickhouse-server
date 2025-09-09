@@ -8,16 +8,28 @@
     update_cache: yes
   become: true
 
-- name: Add the APT Key for ClickHouse.
-  apt_key:
-    keyserver: "{{ clickhouse_key_server }}"
-    id: "{{ clickhouse_deb_rep_key }}"
-    state: present
+# - name: Add the APT Key for ClickHouse.
+#   apt_key:
+#     keyserver: "{{ clickhouse_key_server }}"
+#     id: E0C56BD4
+#     state: present
+#   become: true
+- name: Download and store ClickHouse GPG key
+  ansible.builtin.get_url:
+    url: https://packages.clickhouse.com/rpm/lts/repodata/repomd.xml.key
+    dest: /tmp/clickhouse-keyring.gpg
+    mode: '0644'
+  become: true
+
+- name: Dearmor and move ClickHouse GPG key to keyring
+  ansible.builtin.command:
+    cmd: gpg --dearmor -o /usr/share/keyrings/clickhouse-keyring.gpg /tmp/clickhouse-keyring.gpg
+    creates: /usr/share/keyrings/clickhouse-keyring.gpg
   become: true
 
 - name: Add ClickHouse APT sources
   apt_repository:
-    repo: "{{ clickhouse_deb_rep }}"
+    repo: deb [signed-by=/usr/share/keyrings/clickhouse-keyring.gpg arch=amd64] https://packages.clickhouse.com/deb stable main
     state: present
 
 # It is assumed that clickhouse-server creates user and group clickhouse. They are used along the role.

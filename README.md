@@ -1,3 +1,6 @@
+-- this is just works somehow.
+-- a lot of hardcode, mvp, need to improve
+
 [![Build Status](https://travis-ci.com/nl2go/ansible-role-clickhouse.svg?branch=master)](https://travis-ci.com/nl2go/ansible-role-clickhouse)
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/nl2go/ansible-role-clickhouse)](https://galaxy.ansible.com/nl2go/clickhouse)
 [![Ansible Galaxy](https://img.shields.io/badge/role-nl2go.clickhouse-blue.svg)](https://galaxy.ansible.com/nl2go/clickhouse/)
@@ -106,9 +109,30 @@ None.
 
 ## Example Playbook
 
-    - hosts: all
-      roles:
-        - nl2go.clickhouse
+- hosts: servers
+  become: true
+  vars:
+    clickhouse_deb_rep: "deb https://packages.clickhouse.com/deb stable main"
+    clickhouse_replica_id: "-0" # display_name suffix
+    clickhouse_replica_name: "testtest"
+    clickhouse_timezone: "Europe/Moscow"
+    clickhouse_kafka_client_users:
+      - username: guest
+        password: guest
+    clickhouse_zookeeper_credentials: bar:baz
+    clickhouse_clusters:
+      your_cluster_name:
+        shard_1:
+            - { host: "db_host_1", port: 9000 }
+            - { host: "db_host_2", port: 9000 }
+        shard_2:
+            - { host: "db_host_3", port: 9000 }
+            - { host: "db_host_4", port: 9000 }
+    clickhouse_distributed_user: "testtest"
+    clickhouse_listen_addresses:
+      - "{{ ansible_default_ipv4.address }}"
+  roles:
+    - nl2go.clickhouse
 
 ## Development
 
