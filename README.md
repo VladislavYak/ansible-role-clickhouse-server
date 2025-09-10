@@ -109,6 +109,7 @@ None.
 - hosts: servers
   become: true
   vars:
+    clickhouse_version: 24.1.2.5
     clickhouse_deb_rep: "deb https://packages.clickhouse.com/deb stable main"
     clickhouse_replica_id: "-0" # display_name suffix
     clickhouse_replica_name: "testtest"
@@ -129,7 +130,7 @@ None.
     clickhouse_listen_addresses:
       - "{{ ansible_default_ipv4.address }}"
   roles:
-    - nl2go.clickhouse
+    - ansible-role-clickhouse
 ```
 ## Development
 
