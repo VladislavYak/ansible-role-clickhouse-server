@@ -51,10 +51,27 @@
     owner: "{{ clickhouse_user }}"
     group: "{{ clickhouse_group }}"
 
-- name: Config | CH instances config.
+- name: Config | CH clusters config.
   template:
-    src: instances.xml.j2
-    dest: "{{ clickhouse_conf_dir }}/config.d/instances.xml"
+    src: clusters.xml.j2
+    dest: "{{ clickhouse_conf_dir }}/config.d/clusters.xml"
+    mode: "0664"
+    owner: "{{ clickhouse_user }}"
+    group: "{{ clickhouse_group }}"
+
+
+- name: Config | CH listen_host config.
+  template:
+    src: listen_host.xml.j2
+    dest: "{{ clickhouse_conf_dir }}/config.d/listen_host.xml"
+    mode: "0664"
+    owner: "{{ clickhouse_user }}"
+    group: "{{ clickhouse_group }}"
+
+- name: Config | CH display_name config.
+  template:
+    src: display_name.xml.j2
+    dest: "{{ clickhouse_conf_dir }}/config.d/display_name.xml"
     mode: "0664"
     owner: "{{ clickhouse_user }}"
     group: "{{ clickhouse_group }}"
