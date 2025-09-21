@@ -96,6 +96,8 @@ For the file macros.xml, you need to fill the variables below:
 
 **clickhouse_cluster**: is the cluster name which is used for replication.
 
+**keeper_cluster**: is the cluster name for keeper nodes
+
 **clickhouse_distributed_cluster**: is the distributed cluster name defined in **clickhouse_clusters**.
 
 **clickhouse_shard**: is the shard number (01, 02) that being part of the replication inside one shard.

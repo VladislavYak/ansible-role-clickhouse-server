@@ -1,9 +1,8 @@
 ---
-  - import_tasks: vars.yml
-    tags: [clickhouse, clickhouse_vars, vars]
-  - import_tasks: install.yml
-    tags: [clickhouse, clickhouse_install, install]
-  - import_tasks: config.yml
-    tags: [clickhouse, clickhouse_config, config]
-  - import_tasks: create_databases.yml
-    tags: [clickhouse, clickhouse_create_databases, create_databases]
+  - import_tasks: server.yml
+    tags: [clickhouse]
+  
+  - name: Include Keeper installation tasks
+    import_tasks: keeper.yml
+    when: keeper_enabled and 'keeper' in ansible_run_tags
+    tags: [keeper]

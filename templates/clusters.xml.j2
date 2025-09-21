@@ -9,8 +9,8 @@
                         <replica>
                             <host>{{ replica['host'] }}</host>
                             <port>{{ replica['port'] }}</port>
-                            <user>{{ clickhouse_distributed_user }}</user>
-                            <password></password>
+                 <!--             <user>{{ clickhouse_distributed_user }}</user>
+                            <password></password> -->
                         </replica>
             {% endfor %}
                     </shard>
