@@ -11,10 +11,12 @@ clickhouse_version: "{{ clickhouse_version }}"
 clickhouse_deb_rep: "{{ clickhouse_deb_rep }}"
 clickhouse_deb_rep_key: E0C56BD4
 
+# here we have not needed variables, need to check twice
 clickhouse_max_connections: 4096
 clickhouse_keep_alive_timeout: 3
 clickhouse_max_concurrent_queries: 100
 
+# here we have not needed variables, need to check twice
 clickhouse_mlock_executable: true
 clickhouse_max_server_memory_usage: 0
 clickhouse_max_server_memory_usage_to_ram_ratio: 0.9
@@ -23,6 +25,7 @@ clickhouse_total_memory_tracker_sample_probability: 0
 clickhouse_uncompressed_cache_size: 8589934592
 clickhouse_mark_cache_size: 5368709120
 
+# here we have not needed variables, need to check twice
 clickhouse_path: /var/lib/clickhouse
 clickhouse_tmp_path: "{{ clickhouse_path }}/tmp"
 clickhouse_user_files_path: "{{ clickhouse_path }}/user_files"
@@ -63,9 +66,6 @@ clickhouse_quotas: # More settings: https://clickhouse.tech/docs/en/operations/q
         read_rows: 0
         execution_time: 0
 
-clickhouse_databases: []
-
-clickhouse_internal_dns_disabled: 0
 
 clickhouse_group: clickhouse
 clickhouse_user: clickhouse
@@ -73,7 +73,6 @@ clickhouse_shard: 01
 clickhouse_cluster: clickhouse-cluster
 keeper_cluster: keeper-cluster
 clickhouse_distributed_cluster: distributed_cluster
-clickhouse_temporary_clusters: temporary_cluster
 total_shards: 1
 
 prometheus_enabled: false

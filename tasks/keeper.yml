@@ -57,18 +57,59 @@
     - "/var/lib/clickhouse-keeper"
     - "/var/log/clickhouse-keeper"
     - "/etc/clickhouse-keeper"
+    - "/etc/clickhouse-keeper/keeper_config.d"
   tags: keeper
 
-# yakovlev: split file into several files
 - name: Configure ClickHouse Keeper
   template:
-    src: keeper-config.xml.j2
+    src: clickhouse-keeper/keeper_config_new.xml.j2
     dest: "/etc/clickhouse-keeper/keeper_config.xml"
     owner: "{{ clickhouse_user }}"
     group: "{{ clickhouse_group }}"
     mode: "0644"
   notify: Restart Keeper
   tags: keeper
+
+# - name: Configure ClickHouse Keeper
+#   template:
+#     src: clickhouse-keeper/coordination_settings.xml.j2
+#     dest: "/etc/clickhouse-keeper/keeper_config.d/coordination_settings.xml"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+#     mode: "0644"
+#   notify: Restart Keeper
+#   tags: keeper
+
+# - name: Configure ClickHouse Keeper
+#   template:
+#     src: clickhouse-keeper/raft_configuration.xml.j2
+#     dest: "/etc/clickhouse-keeper/keeper_config.d/raft_configuration.xml"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+#     mode: "0644"
+#   notify: Restart Keeper
+#   tags: keeper
+
+# - name: Configure ClickHouse Keeper
+#   template:
+#     src: clickhouse-keeper/openssl.xml.j2
+#     dest: "/etc/clickhouse-keeper/keeper_config.d/openssl.xml"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+#     mode: "0644"
+#   notify: Restart Keeper
+#   tags: keeper
+
+# - name: Configure ClickHouse Keeper | listen_host
+#   template:
+#     src: clickhouse-keeper/listen_host.xml.j2
+#     dest: "/etc/clickhouse-keeper/keeper_config.d/listen_host.xml"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+#     mode: "0644"
+#   notify: Restart Keeper
+#   tags: keeper
+
 
 - name: Enable ClickHouse Keeper service (create systemd unit)
   systemd:

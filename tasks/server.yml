@@ -44,7 +44,7 @@
 # # CH can do its own logrotation, but I think this is responsability of logrotate, no CH.
 # - name: Install | Logrotate CH logs
 #   template:
-#     src: clickhouse.logrotate.j2
+#     src: clickhouse-server/clickhouse.logrotate.j2
 #     dest: "/etc/logrotate.d/clickhouse"
 #     owner: root
 #     group: root
@@ -77,7 +77,7 @@
 
 # - name: Config | Set ClickHouse configuration file
 #   template:
-#     src: config.xml.j2
+#     src: clickhouse-server/config.xml.j2
 #     dest: "{{ clickhouse_conf_dir }}/config.xml"
 #     owner: "{{ clickhouse_user }}"
 #     group: "{{ clickhouse_group }}"
@@ -86,7 +86,7 @@
 
 # - name: Config | Logging configuration
 #   template:
-#     src: log-level.xml.j2
+#     src: clickhouse-server/log-level.xml.j2
 #     dest: "{{ clickhouse_conf_dir }}/config.d/log-level.xml"
 #     mode: "0664"
 #     owner: "{{ clickhouse_user }}"
@@ -95,7 +95,7 @@
 
 # - name: Config | Kafka <-> CH interface
 #   template:
-#     src: kafka.xml.j2
+#     src: clickhouse-server/kafka.xml.j2
 #     dest: "{{ clickhouse_conf_dir }}/config.d/kafka.xml"
 #     mode: "0664"
 #     owner: "{{ clickhouse_user }}"
@@ -104,7 +104,7 @@
 
 # - name: Config | Generate users config
 #   template:
-#     src: users.xml.j2
+#     src: clickhouse-server/users.xml.j2
 #     dest: "{{ clickhouse_conf_dir }}/users.xml"
 #     mode: "0664"
 #     owner: "{{ clickhouse_user }}"
@@ -112,7 +112,7 @@
 
 # - name: Config | Zookeeper config.
 #   template:
-#     src: zookeeper.xml.j2
+#     src: clickhouse-server/zookeeper.xml.j2
 #     dest: "{{ clickhouse_conf_dir }}/config.d/zookeeper.xml"
 #     mode: "0664"
 #     owner: "{{ clickhouse_user }}"
@@ -121,7 +121,7 @@
 
 # - name: Config | Macros config.
 #   template:
-#     src: macros.xml.j2
+#     src: clickhouse-server/macros.xml.j2
 #     dest: "{{ clickhouse_conf_dir }}/config.d/macros.xml"
 #     mode: "0664"
 #     owner: "{{ clickhouse_user }}"
@@ -129,7 +129,7 @@
 
 # - name: Config | CH clusters config.
 #   template:
-#     src: clusters.xml.j2
+#     src: clickhouse-server/clusters.xml.j2
 #     dest: "{{ clickhouse_conf_dir }}/config.d/clusters.xml"
 #     mode: "0664"
 #     owner: "{{ clickhouse_user }}"
@@ -140,7 +140,7 @@
 
 # - name: Config | CH listen_host config.
 #   template:
-#     src: listen_host.xml.j2
+#     src: clickhouse-server/listen_host.xml.j2
 #     dest: "{{ clickhouse_conf_dir }}/config.d/listen_host.xml"
 #     mode: "0664"
 #     owner: "{{ clickhouse_user }}"
@@ -148,7 +148,7 @@
 
 # - name: Config | CH display_name config.
 #   template:
-#     src: display_name.xml.j2
+#     src: clickhouse-server/display_name.xml.j2
 #     dest: "{{ clickhouse_conf_dir }}/config.d/display_name.xml"
 #     mode: "0664"
 #     owner: "{{ clickhouse_user }}"

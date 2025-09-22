@@ -9,6 +9,7 @@
     </logger>
 
     <listen_host>::</listen_host>
+
     <keeper_server>
         <tcp_port>{{ keeper_port }}</tcp_port>
         <server_id>{{ ansible_play_hosts.index(inventory_hostname) + 1 }}</server_id>

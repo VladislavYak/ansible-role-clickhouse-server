@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<clickhouse>
+
+    <keeper_server>
+
+    <coordination_settings>
+            <operation_timeout_ms>10000</operation_timeout_ms>
+            <session_timeout_ms>30000</session_timeout_ms>
+            <dead_session_check_period_ms>500</dead_session_check_period_ms>
+            <heart_beat_interval_ms>500</heart_beat_interval_ms>
+            <election_timeout_lower_bound_ms>1000</election_timeout_lower_bound_ms>
+            <election_timeout_upper_bound_ms>2000</election_timeout_upper_bound_ms>
+            <snapshot_distance>100</snapshot_distance>
+            <auto_forwarding>true</auto_forwarding>
+            <shutdown_timeout>5000</shutdown_timeout>
+            <startup_timeout>30000</startup_timeout>
+    </coordination_settings>
+
+    </keeper_server>
+
+</clickhouse>
