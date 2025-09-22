@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- {{ ansible_managed }} -->
+<clickhouse>
+     {% if keeper_enabled %}
+    <zookeeper>
+        {% for host in groups['keeper_cluster'] %}
+        <node>
+            <host>{{ host }}</host>
+            <port>{{ keeper_port }}</port>
+        </node>
+        {% endfor %}
+    </zookeeper>
+    {% endif %}
+</clickhouse>

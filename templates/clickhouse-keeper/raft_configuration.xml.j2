@@ -1,0 +1,14 @@
+<clickhouse>
+    <keeper_server>
+        <raft_configuration replace="1">
+            {% for host in groups['keeper_cluster'] %}
+            <server>
+                <id>{{ loop.index }}</id>
+                <hostname>{{ host }}</hostname>
+                <port>{{ keeper_raft_port }}</port>
+                <can_become_leader>true</can_become_leader>
+            </server>
+            {% endfor %}
+        </raft_configuration>
+    </keeper_server>
+</clickhouse>

@@ -1,0 +1,155 @@
+# ---
+# - name: Install multiple packages
+#   apt:
+#     pkg:
+#       - apt-transport-https
+#       - ca-certificates
+#       - dirmngr
+#     update_cache: yes
+#   become: true
+
+# # - name: Add the APT Key for ClickHouse.
+# #   apt_key:
+# #     keyserver: "{{ clickhouse_key_server }}"
+# #     id: E0C56BD4
+# #     state: present
+# #   become: true
+# - name: Download and store ClickHouse GPG key
+#   ansible.builtin.get_url:
+#     url: https://packages.clickhouse.com/rpm/lts/repodata/repomd.xml.key
+#     dest: /tmp/clickhouse-keyring.gpg
+#     mode: '0644'
+#   become: true
+
+# - name: Dearmor and move ClickHouse GPG key to keyring
+#   ansible.builtin.command:
+#     cmd: gpg --dearmor -o /usr/share/keyrings/clickhouse-keyring.gpg /tmp/clickhouse-keyring.gpg
+#     creates: /usr/share/keyrings/clickhouse-keyring.gpg
+#   become: true
+
+# - name: Add ClickHouse APT sources
+#   apt_repository:
+#     repo: deb [signed-by=/usr/share/keyrings/clickhouse-keyring.gpg arch=amd64] https://packages.clickhouse.com/deb stable main
+#     state: present
+
+# # It is assumed that clickhouse-server creates user and group clickhouse. They are used along the role.
+# - name: Install ClickHouse
+#   apt:
+#     pkg:
+#       - clickhouse-server={{ clickhouse_version }}
+#       - clickhouse-client={{ clickhouse_version }}
+#       - clickhouse-common-static={{ clickhouse_version }}
+#   notify: Enable ClickHouse
+
+# # CH can do its own logrotation, but I think this is responsability of logrotate, no CH.
+# - name: Install | Logrotate CH logs
+#   template:
+#     src: clickhouse-server/clickhouse.logrotate.j2
+#     dest: "/etc/logrotate.d/clickhouse"
+#     owner: root
+#     group: root
+#     mode: '0644'
+
+# - name: Create non sensitive ClickHouse directories
+#   file:
+#     path: "{{ item }}"
+#     state: directory
+#     mode: "0755"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+#   loop:
+#     - "{{ clickhouse_conf_dir }}"
+
+# - name: Create sensitive ClickHouse directories
+#   file:
+#     path: "{{ item }}"
+#     state: directory
+#     mode: "0750"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+#   loop:
+#     - "{{ clickhouse_path }}"
+#     - "{{ clickhouse_user_files_path }}"
+#     - "{{ clickhouse_access_control_path }}"
+#     - "{{ clickhouse_tmp_path }}"
+#     - "{{ clickhouse_log_directory }}"
+
+
+# - name: Config | Set ClickHouse configuration file
+#   template:
+#     src: clickhouse-server/config.xml.j2
+#     dest: "{{ clickhouse_conf_dir }}/config.xml"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+#     mode: "0664"
+#   notify: Restart ClickHouse
+
+# - name: Config | Logging configuration
+#   template:
+#     src: clickhouse-server/log-level.xml.j2
+#     dest: "{{ clickhouse_conf_dir }}/config.d/log-level.xml"
+#     mode: "0664"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+#   notify: Restart ClickHouse
+
+# - name: Config | Kafka <-> CH interface
+#   template:
+#     src: clickhouse-server/kafka.xml.j2
+#     dest: "{{ clickhouse_conf_dir }}/config.d/kafka.xml"
+#     mode: "0664"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+#   notify: Restart ClickHouse
+
+# - name: Config | Generate users config
+#   template:
+#     src: clickhouse-server/users.xml.j2
+#     dest: "{{ clickhouse_conf_dir }}/users.xml"
+#     mode: "0664"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+
+# - name: Config | Zookeeper config.
+#   template:
+#     src: clickhouse-server/zookeeper.xml.j2
+#     dest: "{{ clickhouse_conf_dir }}/config.d/zookeeper.xml"
+#     mode: "0664"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+#   notify: Restart ClickHouse
+
+# - name: Config | Macros config.
+#   template:
+#     src: clickhouse-server/macros.xml.j2
+#     dest: "{{ clickhouse_conf_dir }}/config.d/macros.xml"
+#     mode: "0664"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+
+# - name: Config | CH clusters config.
+#   template:
+#     src: clickhouse-server/clusters.xml.j2
+#     dest: "{{ clickhouse_conf_dir }}/config.d/clusters.xml"
+#     mode: "0664"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+#   notify: Restart ClickHouse
+#   # yakovlev: probably notify is required
+
+
+# - name: Config | CH listen_host config.
+#   template:
+#     src: clickhouse-server/listen_host.xml.j2
+#     dest: "{{ clickhouse_conf_dir }}/config.d/listen_host.xml"
+#     mode: "0664"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
+
+# - name: Config | CH display_name config.
+#   template:
+#     src: clickhouse-server/display_name.xml.j2
+#     dest: "{{ clickhouse_conf_dir }}/config.d/display_name.xml"
+#     mode: "0664"
+#     owner: "{{ clickhouse_user }}"
+#     group: "{{ clickhouse_group }}"
