@@ -12,10 +12,3 @@
     name: clickhouse-server
     state: restarted
   listen: Update ClickHouse
-
-# yakovlev: need precise look
-- name: Restart Keeper
-  systemd:
-    name: clickhouse-keeper
-    state: restarted
-  listen: Update Keeper
